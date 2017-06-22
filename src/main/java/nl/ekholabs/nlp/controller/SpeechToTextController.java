@@ -23,8 +23,8 @@ public class SpeechToTextController {
     this.speechToTextService = speechToTextService;
   }
 
-  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-  public TextResponse process(final @RequestParam(value = "file") MultipartFile fileToProcess) throws IOException {
+  @PostMapping(path = "/", produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
+  public TextResponse process(final @RequestParam(value = "input") MultipartFile fileToProcess) throws IOException {
 
     final String outputText = speechToTextService.processSpeech(fileToProcess.getBytes());
     return new TextResponse(outputText);

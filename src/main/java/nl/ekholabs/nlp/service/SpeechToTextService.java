@@ -1,7 +1,6 @@
 package nl.ekholabs.nlp.service;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -11,8 +10,6 @@ import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import static java.lang.String.valueOf;
 
 @Service
 public class SpeechToTextService {
@@ -26,7 +23,7 @@ public class SpeechToTextService {
     configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
 
     final StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
-    final InputStream stream = new FileInputStream(valueOf(new ByteArrayInputStream(input)));
+    final InputStream stream = new ByteArrayInputStream(input);
 
     recognizer.startRecognition(stream);
     SpeechResult result;
@@ -38,7 +35,7 @@ public class SpeechToTextService {
             .append(' ');
       });
 
-      LOGGER.info("Hypothesis: %s",  result.getHypothesis());
+      LOGGER.info(String.format("Hypothesis: %s",  result.getHypothesis()));
     }
     recognizer.stopRecognition();
 
