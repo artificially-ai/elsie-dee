@@ -1,0 +1,17 @@
+server:
+  port: 80
+  context-path: /elsie-dee
+
+spring:
+  application:
+    name: elsie-dee
+
+management:
+  security:
+    enabled: false
+
+endpoints:
+  refresh:
+    enabled: true
+  restart:
+    enabled: true
