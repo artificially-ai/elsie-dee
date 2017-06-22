@@ -2,7 +2,7 @@
 
 Elsie-Dee is a Spring application user as a wrapper for the Carnegie Mellon University famous Sphinx4 Speech-to-Text library.
 
-* [Sphynx4](https://github.com/cmusphinx/sphinx4)
+* [Sphinx4](https://github.com/cmusphinx/sphinx4)
 
 Although Elsie-Dee is currently under development, it can already be used to process small files.
 
@@ -15,7 +15,7 @@ Elsie-Dee is comprised of the following technology stack:
 * Spring Boot
 * Spring Web
 * Spring Actuator
-* Sphynx4
+* Sphinx4
 
 # Running from Source
 
