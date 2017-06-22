@@ -28,7 +28,7 @@ In order to run Elsie-Dee, please follow the steps below:
 
 # Running with Docker
 
-1. ```docker pull ekholabs/elsie-dee:alpha2```
+1. ```docker pull ekholabs/elsie-dee:alpha3```
 2. ```docker run -d -p 80:80 elsie-dee```
 
 Elsie-Dee will run on the background. To check details about the container, execute the following:
