@@ -4,10 +4,6 @@ RUN apt-get -y update && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk
 
 WORKDIR ekholabs
 
-RUN git clone https://github.com/ekholabs/sphinx4.git
-WORKDIR sphinx4
-RUN gradle clean build
-
 RUN git clone https://github.com/ekholabs/elsie-dee
 WORKDIR elsie-dee
 RUN gradle clean build
