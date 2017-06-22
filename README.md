@@ -47,14 +47,14 @@ Once the application is running, the user/developer can find health status and m
 * http://localhost/elsie-dee/metrics
 * http://localhost/elsie-dee/env
 
-#Processing Audio Files
+# Processing Audio Files
 
 In order to process audio files and extract text, one can use the ```/process``` endpoint with Postman or cURL.
 
-##Postman
+## Postman
 
-[wip] - need screenshots
+[wip] - need screenshot
 
-##cURL
+## cURL
 
 * ```curl -v -F input=@[path_to_file] http://localhost/elsie-dee/process```
