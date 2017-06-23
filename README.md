@@ -53,8 +53,10 @@ In order to process audio files and extract text, one can use the ```/process```
 
 ## Postman
 
-[Postman Screenshot](https://github.com/ekholabs/elsie-dee/blob/master/elsie-dee-postman.png)
+[Postman Screenshot](https://github.com/ekholabs/elsie-dee/blob/master/src/test/resources/elsie-dee-postman.png)
 
 ## cURL
 
 * ```curl -v -F input=@[path_to_file] http://localhost/elsie-dee/process```
+
+You can find a test file here: [male speaking](https://github.com/ekholabs/elsie-dee/blob/master/src/test/resources/man2_orig.wav)
