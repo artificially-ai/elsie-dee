@@ -6,9 +6,32 @@ spring:
   application:
     name: elsie-dee
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ADVERTISED_HOST_NAME:localhost}:8081/eureka/
+    healthcheck:
+          enabled: true
+
 management:
   security:
     enabled: false
+
+feign:
+  compression:
+    request:
+      enabled: true
+    mime-types: application/json
+    response:
+      enabled: true
+
+elsie-deetect:
+  ribbon:
+    listOfServers: http://localhost:8080
+
+ribbon:
+  eureka:
+   enabled: true
 
 endpoints:
   refresh:
