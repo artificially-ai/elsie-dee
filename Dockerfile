@@ -8,9 +8,7 @@ RUN git clone https://github.com/ekholabs/elsie-dee
 WORKDIR elsie-dee
 RUN ./gradlew clean build
 
-COPY build/libs/elsie-dee-1.0-SNAPSHOT.jar ./elsie-dee.jar
-
 EXPOSE 80
 
 ENTRYPOINT ["java"]
-CMD ["-server", "-Xmx1G", "-jar", "elsie-dee.jar"]
+CMD ["-server", "-Xmx1G", "-jar", "build/libs/elsie-dee-1.0-SNAPSHOT.jar"]
