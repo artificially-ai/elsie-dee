@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: elsie-dee
+  cloud:
+    config:
+      uri: http://${CONFIGURATION_SERVER_HOST_NAME:localhost}:8082
