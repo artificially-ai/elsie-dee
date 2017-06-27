@@ -1,4 +1,4 @@
-package nl.ekholabs.nlp.elsiedee.helath;
+package nl.ekholabs.nlp.elsiedee.health;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class HealthIndicatorTest {
   }
 
   @Test
-  public void testNotFound() throws Exception {
+  public void testClientError() throws Exception {
     mvc.perform(get("/check"))
         .andExpect(status().is4xxClientError());
   }

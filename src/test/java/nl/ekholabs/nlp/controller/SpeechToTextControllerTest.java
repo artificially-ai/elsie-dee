@@ -37,7 +37,7 @@ public class SpeechToTextControllerTest {
     final MockMultipartFile multipartFile =
         new MockMultipartFile("input", "man2_orig.wav", "audio/wav", allBytes);
 
-    final String contentAsString = this.mvc.perform(fileUpload("/process").file(multipartFile))
+    final String contentAsString = mvc.perform(fileUpload("/process").file(multipartFile))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
