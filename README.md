@@ -17,19 +17,31 @@ Elsie-Dee is comprised of the following technology stack:
 * Spring Actuator
 * Sphinx4
 
-# Running from Source
+# Dependencies
 
-In order to run Elsie-Dee, please follow the steps below:
+* Configuration Service
+  * This microservice depends on the Configuration Service in order to retrieve its settings. It means that before starting this server,
+    please make sure that the one it depends on is already running.
+  * You can find out how to run the Configuration Service here: [Configuration Service](https://github.com/ekholabs/configuration-service)
+* Eureka Service
+  * As a second note, this microservice also dependes on the Eureka Service in order to register for service discovery. However,
+    the Eureka Service does not need to be running before this one can be started.
+  * You can find out how to run the Configuration Service here: [Eureka Service](https://github.com/ekholabs/eureka-service)
 
-1. ```git clone https://github.com/ekholabs/elsie-dee.git```
-2. ```cd elsie-dee```
-3. ```./gradlew clean build```
-4. ```./gradlew bootRun```
+* Elsie-Deetect
+  * This microservice is used to detect the language from a given speech. Elsie-Dee implements it as a Feign Client,
+    hence the dependency.
+  * You can find out how to run the Elsie-Deetect Service here: [Eureka Service](https://github.com/ekholabs/elsie-deetect)
 
-# Running with Docker
+In a dependency order priority, the Configuration Service should be started before everything else.
 
-1. ```docker pull ekholabs/elsie-dee:latest```
-2. ```docker run -d -p 80:80 ekholabs/elsie-dee:latest```
+# Pulling the Docker Image
+
+* ```docker pull ekholabs/elsie-dee```
+
+# Running the Docker Container
+
+* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect ekholabs/elsie-dee```
 
 Elsie-Dee will run on the background. To check details about the container, execute the following:
 
