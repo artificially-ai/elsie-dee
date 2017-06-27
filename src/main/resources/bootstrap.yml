@@ -4,6 +4,6 @@ spring:
   cloud:
     config:
       uri: http://${CONFIGURATION_SERVER_HOST_NAME:configuration-service}:8082
-      fail-fast: true
+      fail-fast: false
       retry:
         max-attempts: 8
