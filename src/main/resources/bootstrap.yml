@@ -6,4 +6,5 @@ spring:
       uri: http://${CONFIGURATION_SERVER_HOST_NAME:configuration-service}:8082
       fail-fast: false
       retry:
-        max-attempts: 8
+        max-attempts: 15
+        max-interval: 4000
