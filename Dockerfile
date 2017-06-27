@@ -1,6 +1,6 @@
 FROM debian:latest
 
-RUN apt-get -y update && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk maven git
+RUN apt-get -y update && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk maven git curl
 
 WORKDIR ekholabs
 
