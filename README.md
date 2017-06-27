@@ -31,7 +31,7 @@ Elsie-Dee is comprised of the following technology stack:
 * Elsie-Deetect
   * This microservice is used to detect the language from a given speech. Elsie-Dee implements it as a Feign Client,
     hence the dependency.
-  * You can find out how to run the Elsie-Deetect Service here: [Eureka Service](https://github.com/ekholabs/elsie-deetect)
+  * You can find out how to run the Elsie-Deetect Service here: [Elsie Deetect](https://github.com/ekholabs/elsie-deetect)
 
 In a dependency order priority, the Configuration Service should be started before everything else.
 
