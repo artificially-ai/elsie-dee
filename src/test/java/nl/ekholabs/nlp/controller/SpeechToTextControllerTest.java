@@ -27,7 +27,7 @@ public class SpeechToTextControllerTest {
   private MockMvc mvc;
 
   @Test
-  public void shouldSaveUploadedFile() throws Exception {
+  public void processUploadedFile() throws Exception {
 
     final String expectedResult = "{\"output\":\"<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
         + "passengers who buy that toll it seemed principally bonds to the mentions a bit \"}";
