@@ -6,20 +6,15 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class TextResponse {
 
+  private Language language;
   private String output;
 
   TextResponse() {
   }
 
-  public TextResponse(final String output) {
+  public TextResponse(final Language language, final String output) {
+    this.language = language;
     this.output = output;
-  }
-
-  @Override
-  public String toString() {
-    return "TextResponse{" +
-        "output='" + output + '\'' +
-        '}';
   }
 
   @Override
@@ -33,11 +28,24 @@ public class TextResponse {
 
     final TextResponse that = (TextResponse) o;
 
+    if (language != null ? !language.equals(that.language) : that.language != null) {
+      return false;
+    }
     return output != null ? output.equals(that.output) : that.output == null;
   }
 
   @Override
   public int hashCode() {
-    return output != null ? output.hashCode() : 0;
+    int result = language != null ? language.hashCode() : 0;
+    result = 31 * result + (output != null ? output.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "TextResponse{" +
+        "language=" + language +
+        ", output='" + output + '\'' +
+        '}';
   }
 }
