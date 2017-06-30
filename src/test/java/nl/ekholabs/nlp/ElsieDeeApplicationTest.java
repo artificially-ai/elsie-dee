@@ -22,7 +22,7 @@ public class ElsieDeeApplicationTest {
 
   @Test
   public void statusOk() throws Exception {
-    final RequestBuilder request = get("/");
+    final RequestBuilder request = get("/elsie-dee");
     mvc.perform(request).andExpect(status().is4xxClientError());
   }
 }
