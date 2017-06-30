@@ -7,7 +7,9 @@ import nl.ekholabs.nlp.model.Language;
 import nl.ekholabs.nlp.model.TextResponse;
 import nl.ekholabs.nlp.service.SpeechToTextService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,11 +33,14 @@ public class SpeechToTextController {
   public TextResponse process(final @RequestParam(value = "input") MultipartFile fileToProcess) throws IOException {
 
     final String outputText = speechToTextService.processSpeech(fileToProcess.getBytes());
-
     final Language language = elsieDeetect.identify(outputText);
 
     return new TextResponse(language, outputText);
   }
 
+  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
+  public Language identify(final @RequestBody String text) throws IOException {
+    return elsieDeetect.identify(text);
+  }
 
 }

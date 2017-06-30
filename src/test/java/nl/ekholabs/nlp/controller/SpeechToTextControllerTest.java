@@ -17,12 +17,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 
 import static java.lang.ClassLoader.getSystemResource;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -66,5 +69,27 @@ public class SpeechToTextControllerTest {
 
     assertThat(contentAsString, Matchers.notNullValue());
     assertThat(contentAsString, Matchers.equalTo(expectedResult));
+  }
+
+  @Test
+  public void identifyEnglish() throws Exception {
+
+    final String content = "If you just want the body of the xhtml document, without the header, you can chain together a "
+        + "BodyContentHandler and a ToXMLContentHandler as shown:";
+
+    final RequestBuilder request = post("/identify")
+        .contentType(TEXT_PLAIN_VALUE)
+        .content(content);
+
+    when(elsieDeetect.identify(content)).thenReturn(new Language("en"));
+
+    final String contentAsString = mvc.perform(request)
+        .andExpect(status().isOk())
+        .andReturn().getResponse().getContentAsString();
+
+    assertThat(contentAsString, Matchers.notNullValue());
+    assertThat(contentAsString, Matchers.containsString("en"));
+
+    LOGGER.info(contentAsString);
   }
 }
