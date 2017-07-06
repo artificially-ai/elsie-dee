@@ -1,4 +1,4 @@
-group 'nk.ekholabs.nlp'
+group 'nl.ekholabs.nlp'
 version '1.0-SNAPSHOT'
 
 buildscript {
