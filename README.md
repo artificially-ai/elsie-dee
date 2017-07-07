@@ -4,7 +4,7 @@ Elsie-Dee is a Spring application user as a wrapper for the Carnegie Mellon Univ
 
 * [Sphinx4](https://github.com/cmusphinx/sphinx4)
 
-Although Elsie-Dee is currently under development, it can already be used to process small files.
+Although Elsie-Dee is currently under development, it can already be used to process small audio files, for speech-to-text, and do face classification.
 
 # Technology Stack
 
@@ -24,16 +24,19 @@ Elsie-Dee is comprised of the following technology stack:
     please make sure that the one it depends on is already running.
   * You can find out how to run the Configuration Service here: [Configuration Service](https://github.com/ekholabs/configuration-service)
 * Eureka Service
-  * As a second note, this microservice also dependes on the Eureka Service in order to register for service discovery. However,
+  * As a second note, this microservice also depends on the Eureka Service in order to register for service discovery. However,
     the Eureka Service does not need to be running before this one can be started.
   * You can find out how to run the Configuration Service here: [Eureka Service](https://github.com/ekholabs/eureka-service)
-
 * Elsie-Deetect
   * This microservice is used to detect the language from a given speech. Elsie-Dee implements it as a Feign Client,
     hence the dependency.
   * You can find out how to run the Elsie-Deetect Service here: [Elsie Deetect](https://github.com/ekholabs/elsie-deetect)
+* Elsie-Dee Sight
+  * This microservice is used face classification. Elsie-Dee implements it as a Feign Client,
+    hence the dependency.
+  * You can find out how to run the Elsie-Dee Sight Service here: [Elsie-Dee Sight](https://github.com/ekholabs/elsie-deesight)
 
-In a dependency order priority, the Configuration Service should be started before everything else.
+In a dependency order priority, the Eureka Service should be started before everything else. The second in the list must be the Configuration Service.
 
 # Pulling the Docker Image
 
@@ -41,7 +44,7 @@ In a dependency order priority, the Configuration Service should be started befo
 
 # Running the Docker Container
 
-* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect ekholabs/elsie-dee```
+* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect --link elsie-deesight ekholabs/elsie-dee```
 
 Elsie-Dee will run on the background. To check details about the container, execute the following:
 
