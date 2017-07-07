@@ -68,7 +68,7 @@ In order to process audio files and extract text, one can use the ```/process```
 
 ## Postman
 
-[Postman Screenshot](https://github.com/ekholabs/elsie-dee/blob/master/src/test/resources/elsie-dee-postman.png)
+![alt tag](src/test/resources/elsie-dee-postman.png)
 
 ## cURL
 
