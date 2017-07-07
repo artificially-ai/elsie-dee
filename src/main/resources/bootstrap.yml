@@ -3,7 +3,7 @@ spring:
     name: elsie-dee
   cloud:
     config:
-      uri: http://${CONFIGURATION_SERVER_HOST_NAME:configuration-service}:8082
+      uri: http://${CONFIGURATION_SERVER_HOST_NAME:localhost}:8082
       fail-fast: false
       retry:
         max-attempts: 15
