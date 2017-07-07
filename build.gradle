@@ -34,6 +34,9 @@ dependencies {
   compile group: 'org.springframework.retry', name: 'spring-retry', version: '1.2.1.RELEASE'
   compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '1.5.4.RELEASE'
 
+  compile group: 'io.github.openfeign.form', name: 'feign-form', version: '2.1.0'
+  compile group: 'io.github.openfeign.form', name: 'feign-form-spring', version: '2.1.0'
+
   compile group: 'edu.cmu.sphinx', name: 'sphinx4-core',  version:'5prealpha-SNAPSHOT'
   compile group: 'edu.cmu.sphinx', name: 'sphinx4-data',  version:'5prealpha-SNAPSHOT'
 
