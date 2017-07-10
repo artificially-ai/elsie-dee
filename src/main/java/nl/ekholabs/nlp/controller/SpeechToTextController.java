@@ -7,7 +7,6 @@ import nl.ekholabs.nlp.model.Language;
 import nl.ekholabs.nlp.model.TextResponse;
 import nl.ekholabs.nlp.service.SpeechToTextService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
+import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
 @RestController
 public class SpeechToTextController {
@@ -29,7 +29,7 @@ public class SpeechToTextController {
     this.elsieDeetect = elsieDeetect;
   }
 
-  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(path = "/processAudio", produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
   public TextResponse processAudio(final @RequestParam(value = "audio") MultipartFile audioFile) throws IOException {
 
     final String outputText = speechToTextService.processSpeech(audioFile.getBytes());
@@ -38,9 +38,8 @@ public class SpeechToTextController {
     return new TextResponse(language, outputText);
   }
 
-  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
+  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = TEXT_PLAIN_VALUE)
   public Language identify(final @RequestBody String text) throws IOException {
     return elsieDeetect.identify(text);
   }
-
 }

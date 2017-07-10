@@ -2,7 +2,6 @@ package nl.ekholabs.nlp.controller;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.logging.Logger;
 
 import nl.ekholabs.nlp.client.ElsieDeeSightFeignClient;
 import org.junit.Before;
@@ -30,8 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 public class FaceClassifierControllerTest {
-
-  private static final Logger LOGGER = Logger.getLogger(FaceClassifierControllerTest.class.getName());
 
   @Autowired
   private MockMvc mvc;

@@ -47,7 +47,7 @@ public class SpeechToTextControllerTest {
   }
 
   @Test
-  public void processUploadedFile() throws Exception {
+  public void processAudioFile() throws Exception {
 
     final String expectedResult = "{\"language\":{\"code\":\"en\"},\"output\":\"<sil> the catch was crowded <sil> goes inside and "
         + "out [NOISE] <sil> with passengers who buy that toll it seemed principally bonds to the mentions a bit \"}";
@@ -55,7 +55,7 @@ public class SpeechToTextControllerTest {
     final byte[] allBytes = Files.readAllBytes(Paths.get(getSystemResource("man2_orig.wav").toURI()));
 
     final MockMultipartFile multipartFile =
-        new MockMultipartFile("input", "man2_orig.wav", "audio/wav", allBytes);
+        new MockMultipartFile("audio", "man2_orig.wav", "audio/wav", allBytes);
 
     when(elsieDeetect.identify("<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
         + "passengers who buy that toll it seemed principally bonds to the mentions a bit ")).thenReturn(new Language("en"));
