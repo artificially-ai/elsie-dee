@@ -57,7 +57,6 @@ public class SpeechToTextControllerTest {
     final MockMultipartFile multipartFile =
         new MockMultipartFile("input", "man2_orig.wav", "audio/wav", allBytes);
 
-
     when(elsieDeetect.identify("<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
         + "passengers who buy that toll it seemed principally bonds to the mentions a bit ")).thenReturn(new Language("en"));
 
