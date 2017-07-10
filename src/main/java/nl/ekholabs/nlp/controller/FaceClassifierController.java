@@ -23,8 +23,8 @@ public class FaceClassifierController {
   }
 
   @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<byte[]> processImage(final @RequestParam(value = "image") MultipartFile face) throws IOException {
-    return elsieDeeSightFeignClient.process(face);
+  public ResponseEntity<byte[]> processImage(final @RequestParam(value = "image") MultipartFile image) throws IOException {
+    return elsieDeeSightFeignClient.process(image);
   }
 
 }
