@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_OCTET_STREAM_VALUE;
 public interface ElsieDeeSightFeignClient {
 
   @RequestMapping(
-      value = "/elsie-deesight/process",
+      value = "/elsie-deesight/processImage",
       method = RequestMethod.POST,
       produces = APPLICATION_OCTET_STREAM_VALUE
   )
