@@ -30,9 +30,9 @@ public class SpeechToTextController {
   }
 
   @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-  public TextResponse process(final @RequestParam(value = "input") MultipartFile fileToProcess) throws IOException {
+  public TextResponse processAudio(final @RequestParam(value = "audio") MultipartFile audioFile) throws IOException {
 
-    final String outputText = speechToTextService.processSpeech(fileToProcess.getBytes());
+    final String outputText = speechToTextService.processSpeech(audioFile.getBytes());
     final Language language = elsieDeetect.identify(outputText);
 
     return new TextResponse(language, outputText);

@@ -61,7 +61,7 @@ public class SpeechToTextControllerTest {
     when(elsieDeetect.identify("<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
         + "passengers who buy that toll it seemed principally bonds to the mentions a bit ")).thenReturn(new Language("en"));
 
-    final String contentAsString = mvc.perform(fileUpload("/process").file(multipartFile))
+    final String contentAsString = mvc.perform(fileUpload("/processAudio").file(multipartFile))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
