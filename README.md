@@ -64,11 +64,11 @@ Once the application is running, the user/developer can find health status and m
 
 # Processing Audio Files
 
-In order to process audio files and extract text, one can use the ```/process``` endpoint with Postman or cURL.
+In order to process audio files and extract text, one can use the ```/processAudio``` endpoint with Postman or cURL.
 
 ## Postman
 
-![alt tag](src/test/resources/elsie-dee-postman.png)
+![alt tag](src/test/resources/elsie-deetect-postman.png)
 
 ## cURL
 
