@@ -1,6 +1,6 @@
 FROM debian:latest
 
-RUN apt-get -y update && apt-get install -y openjdk-8-jre-headless openjdk-8-jdk maven git vim procps
+RUN apt-get -y update && apt-get install -y openjdk-8-jre vim procps curl
 
 COPY build/libs/elsie-dee-1.0-SNAPSHOT.jar /ekholabs/elsie-dee.jar
 
