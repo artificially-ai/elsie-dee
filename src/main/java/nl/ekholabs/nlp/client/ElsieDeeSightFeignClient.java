@@ -1,12 +1,7 @@
 package nl.ekholabs.nlp.client;
 
-import feign.codec.Encoder;
-import feign.form.spring.SpringFormEncoder;
+import nl.ekholabs.nlp.client.configuration.MultipartSupportConfig;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,15 +21,4 @@ public interface ElsieDeeSightFeignClient {
   )
   @ResponseBody
   ResponseEntity<byte[]> process(final @RequestPart MultipartFile image);
-}
-
-@Configuration
-class MultipartSupportConfig {
-
-  @Bean
-  @Primary
-  @Scope("prototype")
-  public Encoder feignFormEncoder() {
-    return new SpringFormEncoder();
-  }
 }
