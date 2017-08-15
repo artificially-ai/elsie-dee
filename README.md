@@ -32,9 +32,13 @@ Elsie-Dee is comprised of the following technology stack:
     hence the dependency.
   * You can find out how to run the Elsie-Deetect Service here: [Elsie Deetect](https://github.com/ekholabs/elsie-deetect)
 * Elsie-Dee Sight
-  * This microservice is used face classification. Elsie-Dee implements it as a Feign Client,
+  * This microservice is used for face classification. Elsie-Dee implements it as a Feign Client,
     hence the dependency.
   * You can find out how to run the Elsie-Dee Sight Service here: [Elsie-Dee Sight](https://github.com/ekholabs/elsie-deesight)
+* Elsie-Dee Audio rip
+  * This microservice is used to extract audio from video files. Elsie-Dee implements it as a Feign Client,
+    hence the dependency.
+  * You can find out how to run the Elsie-Dee Audio Rip Service here: [Elsie-Dee Audio Rip](https://github.com/ekholabs/elsie-dee-audiorip)
 
 In a dependency order priority, the Eureka Service should be started before everything else. The second in the list must be the Configuration Service.
 
@@ -44,7 +48,7 @@ In a dependency order priority, the Eureka Service should be started before ever
 
 # Running the Docker Container
 
-* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect --link elsie-deesight ekholabs/elsie-dee```
+* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect --link elsie-deesight --link elsie-dee-audiorip ekholabs/elsie-dee```
 
 Elsie-Dee will run on the background. To check details about the container, execute the following:
 
