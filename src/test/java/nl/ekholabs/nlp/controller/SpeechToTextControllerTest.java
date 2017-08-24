@@ -49,7 +49,7 @@ public class SpeechToTextControllerTest {
   @Test
   public void processAudioFile() throws Exception {
 
-    final String expectedResult = "{\"language\":{\"code\":\"en\"},\"output\":\"<sil> the catch was crowded <sil> goes inside and "
+    final String expectedResult = "{\"output\":\"<sil> the catch was crowded <sil> goes inside and "
         + "out [NOISE] <sil> with passengers who buy that toll it seemed principally bonds to the mentions a bit \"}";
 
     final byte[] allBytes = Files.readAllBytes(Paths.get(getSystemResource("man2_orig.wav").toURI()));
