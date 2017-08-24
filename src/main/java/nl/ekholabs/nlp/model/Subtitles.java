@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-public class Keyword {
+public class Subtitles {
 
-  private String label;
+  private String text;
 
-  Keyword() {
+  Subtitles() {
   }
 
-  public Keyword(final String label) {
-    this.label = label;
+  public Subtitles(final String text) {
+    this.text = text;
   }
 
   @Override
@@ -24,20 +24,20 @@ public class Keyword {
       return false;
     }
 
-    final Keyword keyword = (Keyword) o;
+    final Subtitles subtitles = (Subtitles) o;
 
-    return label != null ? label.equals(keyword.label) : keyword.label == null;
+    return text != null ? text.equals(subtitles.text) : subtitles.text == null;
   }
 
   @Override
   public int hashCode() {
-    return label != null ? label.hashCode() : 0;
+    return text != null ? text.hashCode() : 0;
   }
 
   @Override
   public String toString() {
-    return "Keyword{" +
-        "label='" + label + '\'' +
+    return "Subtitles{" +
+        "text='" + text + '\'' +
         '}';
   }
 }

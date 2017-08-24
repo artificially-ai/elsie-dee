@@ -4,16 +4,14 @@ import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
-public class MultipartSupportConfig {
+public class TextSupportConfig {
 
   @Bean
   @Scope("prototype")
-  @Primary
-  public Encoder feignFormEncoder() {
+  public Encoder feignTextEncoder() {
     return new SpringFormEncoder();
   }
 }

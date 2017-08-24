@@ -1,12 +1,18 @@
 package nl.ekholabs.nlp.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.ekholabs.nlp.client.ElsieDeeAudioRipFeignClient;
-import nl.ekholabs.nlp.client.ElsieDeetectFeignClient;
-import nl.ekholabs.nlp.model.Language;
-import nl.ekholabs.nlp.model.TextResponse;
+import nl.ekholabs.nlp.client.ElsieDeeCreateAssetFeignClient;
+import nl.ekholabs.nlp.client.ElsieDeeSearchAssetsFeignClient;
+import nl.ekholabs.nlp.model.Asset;
+import nl.ekholabs.nlp.model.AssetKeyword;
+import nl.ekholabs.nlp.model.Subtitles;
 import nl.ekholabs.nlp.service.SpeechToTextService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,26 +26,39 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 @RestController
 public class ChainReactionController {
 
-  private final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient;
+  private final static Logger LOGGER = LoggerFactory.getLogger(ChainReactionController.class);
+
   private final SpeechToTextService speechToTextService;
-  private final ElsieDeetectFeignClient elsieDeetect;
+  private final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient;
+  private final ElsieDeeCreateAssetFeignClient elsieDeeCreateAssetFeignClient;
+  private final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient;
 
   @Autowired
-  public ChainReactionController(final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient,
-                                 final SpeechToTextService speechToTextService, final ElsieDeetectFeignClient elsieDeetect) {
-    this.elsieDeeAudioRipFeignClient = elsieDeeAudioRipFeignClient;
+  public ChainReactionController(final SpeechToTextService speechToTextService,
+                                 final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient,
+                                 final ElsieDeeCreateAssetFeignClient elsieDeeCreateAssetFeignClient,
+                                 final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient) {
     this.speechToTextService = speechToTextService;
-    this.elsieDeetect = elsieDeetect;
+    this.elsieDeeAudioRipFeignClient = elsieDeeAudioRipFeignClient;
+    this.elsieDeeCreateAssetFeignClient = elsieDeeCreateAssetFeignClient;
+    this.elsieDeeSearchAssetsFeignClient = elsieDeeSearchAssetsFeignClient;
   }
 
-  @PostMapping(path = "/executeChain", produces = APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-  public TextResponse executeChain(final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
+  @PostMapping(path = "/processVideo", produces = APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
+  public List<Asset> processVideo(final @RequestParam(value = "title") String assetTitle,
+                           final @RequestParam(value = "keywords") String assetKeywordText,
+                           final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
 
     //TODO replace with chain of responsibility design pattern.
     final ResponseEntity<byte[]> audioEntity = elsieDeeAudioRipFeignClient.process(videoFile);
-    final String outputText = speechToTextService.processSpeech(audioEntity.getBody());
-    final Language language = elsieDeetect.identify(outputText);
+    final Subtitles subtitles = new Subtitles(speechToTextService.processSpeech(audioEntity.getBody()));
 
-    return new TextResponse(language, outputText);
+    final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetTitle, subtitles);
+    LOGGER.info("Asset created: {}", asset);
+
+    final AssetKeyword assetKeyword = new ObjectMapper().readValue(assetKeywordText, AssetKeyword.class);
+    LOGGER.info("AssetKeyword created: {}", assetKeyword);
+
+    return elsieDeeSearchAssetsFeignClient.assets(assetKeyword);
   }
 }

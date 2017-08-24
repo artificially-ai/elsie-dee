@@ -2,9 +2,11 @@ package nl.ekholabs.nlp.controller;
 
 import java.util.List;
 
-import nl.ekholabs.nlp.client.ElsieDeeSearchFeignClient;
+import nl.ekholabs.nlp.client.ElsieDeeSearchAssetsFeignClient;
 import nl.ekholabs.nlp.model.Asset;
 import nl.ekholabs.nlp.model.AssetKeyword;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,15 +17,18 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 @RestController
 public class AssetSearchController {
 
-  private final ElsieDeeSearchFeignClient elsieDeeSightFeignClient;
+  private final static Logger LOGGER = LoggerFactory.getLogger(AssetSearchController.class);
+
+  private final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient;
 
   @Autowired
-  public AssetSearchController(final ElsieDeeSearchFeignClient elsieDeeSightFeignClient) {
-    this.elsieDeeSightFeignClient = elsieDeeSightFeignClient;
+  public AssetSearchController(final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient) {
+    this.elsieDeeSearchAssetsFeignClient = elsieDeeSearchAssetsFeignClient;
   }
 
   @PostMapping(value = "/assets", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-  public List<Asset> assets(@RequestBody final AssetKeyword assetKeyword) {
-    return elsieDeeSightFeignClient.assets(assetKeyword);
+  public List<Asset> assets(final @RequestBody AssetKeyword assetKeyword) {
+    LOGGER.info("AssetKeyword received: {}", assetKeyword);
+    return elsieDeeSearchAssetsFeignClient.assets(assetKeyword);
   }
 }

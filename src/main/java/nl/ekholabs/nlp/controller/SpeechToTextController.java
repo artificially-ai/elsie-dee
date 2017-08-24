@@ -33,10 +33,7 @@ public class SpeechToTextController {
   public TextResponse processAudio(final @RequestParam(value = "audio") MultipartFile audioFile) throws IOException {
 
     final String outputText = speechToTextService.processSpeech(audioFile.getBytes());
-    //TODO we don't neet to identify the language at this point. Remove it.
-    final Language language = elsieDeetect.identify(outputText);
-
-    return new TextResponse(language, outputText);
+    return new TextResponse(outputText);
   }
 
   @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = TEXT_PLAIN_VALUE)
