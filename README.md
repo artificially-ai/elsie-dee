@@ -1,6 +1,6 @@
 # Elsie-Dee
 
-Elsie-Dee is a Spring application user as a wrapper for the Carnegie Mellon University famous Sphinx4 Speech-to-Text library.
+Elsie-Dee is a Spring application used as a wrapper for Carnegie Mellon University famous Sphinx4 Speech-to-Text library.
 
 * [Sphinx4](https://github.com/cmusphinx/sphinx4)
 
@@ -35,10 +35,14 @@ Elsie-Dee is comprised of the following technology stack:
   * This microservice is used for face classification. Elsie-Dee implements it as a Feign Client,
     hence the dependency.
   * You can find out how to run the Elsie-Dee Sight Service here: [Elsie-Dee Sight](https://github.com/ekholabs/elsie-deesight)
-* Elsie-Dee Audio rip
+* Elsie-Dee Audio Rip
   * This microservice is used to extract audio from video files. Elsie-Dee implements it as a Feign Client,
     hence the dependency.
   * You can find out how to run the Elsie-Dee Audio Rip Service here: [Elsie-Dee Audio Rip](https://github.com/ekholabs/elsie-dee-audiorip)
+* Elsie-Dee Search
+  * This microservice is used to perform searches in the assets' subtitles content. Elsie-Dee implements it as a Feign Client,
+    hence the dependency.
+  * You can find out how to run the Elsie-Dee Search Service here: [Elsie-Dee Search](https://github.com/ekholabs/elsie-dee-search)
 
 In a dependency order priority, the Eureka Service should be started before everything else. The second in the list must be the Configuration Service.
 
@@ -48,7 +52,7 @@ In a dependency order priority, the Eureka Service should be started before ever
 
 # Running the Docker Container
 
-* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect --link elsie-deesight --link elsie-dee-audiorip ekholabs/elsie-dee```
+* ```docker run -d -p 80:80 --link configuration-service --link eureka-service --link elsie-deetect --link elsie-deesight --link elsie-dee-audiorip --link elsie-dee-search ekholabs/elsie-dee```
 
 Elsie-Dee will run on the background. To check details about the container, execute the following:
 
@@ -76,6 +80,6 @@ In order to process audio files and extract text, one can use the ```/processAud
 
 ## cURL
 
-* ```curl -v -F input=@[path_to_file] http://localhost/elsie-dee/process```
+* ```curl -v -F input=@[path_to_file] http://localhost/elsie-dee/processAudio```
 
 You can find a test file here: [male speaking](https://github.com/ekholabs/elsie-dee/blob/master/src/test/resources/man2_orig.wav)
