@@ -1,5 +1,9 @@
 package nl.ekholabs.nlp.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Keyword {
 
   private String label;
@@ -10,10 +14,6 @@ public class Keyword {
 
   public Keyword(final String label) {
     this.label = label;
-  }
-
-  public String getLabel() {
-    return label;
   }
 
   @Override

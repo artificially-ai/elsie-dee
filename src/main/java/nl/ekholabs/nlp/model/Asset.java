@@ -1,5 +1,10 @@
 package nl.ekholabs.nlp.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.*;
+
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Asset {
 
   private String id;
@@ -13,18 +18,6 @@ public class Asset {
   public Asset(final String title, final String subtitles) {
     this.title = title;
     this.subtitles = subtitles;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public String getSubtitles() {
-    return subtitles;
   }
 
   @Override

@@ -2,6 +2,11 @@ package nl.ekholabs.nlp.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.*;
+
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class AssetKeyword {
 
   public List<Keyword> keywords;
@@ -11,10 +16,6 @@ public class AssetKeyword {
 
   public AssetKeyword(final List<Keyword> keywords) {
     this.keywords = keywords;
-  }
-
-  public List<Keyword> getKeywords() {
-    return keywords;
   }
 
   @Override
