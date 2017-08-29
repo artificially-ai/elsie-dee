@@ -1,6 +1,6 @@
-FROM debian:latest
+FROM openjdk:jre-alpine
 
-RUN apt-get -y update && apt-get install -y openjdk-8-jre vim procps curl
+RUN apk update && apk add vim procps
 
 COPY build/libs/elsie-dee-1.0-SNAPSHOT.jar /ekholabs/elsie-dee.jar
 
