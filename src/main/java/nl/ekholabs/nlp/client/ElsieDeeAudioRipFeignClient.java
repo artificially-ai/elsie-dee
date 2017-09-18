@@ -14,9 +14,9 @@ import static org.springframework.http.MediaType.APPLICATION_OCTET_STREAM_VALUE;
 public interface ElsieDeeAudioRipFeignClient {
 
   @RequestMapping(
-      value = "/elsie-dee-audiorip/ripAudio",
+      value = "/elsie-dee-audiorip/extractAudio",
       method = RequestMethod.POST,
       produces = APPLICATION_OCTET_STREAM_VALUE
   )
-  ResponseEntity<byte[]> process(final @RequestPart MultipartFile video);
+  ResponseEntity<byte[]> extractAudio(final @RequestPart MultipartFile video);
 }

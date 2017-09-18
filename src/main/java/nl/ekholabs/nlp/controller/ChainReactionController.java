@@ -50,7 +50,7 @@ public class ChainReactionController {
                            final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
 
     //TODO replace with chain of responsibility design pattern.
-    final ResponseEntity<byte[]> audioEntity = elsieDeeAudioRipFeignClient.process(videoFile);
+    final ResponseEntity<byte[]> audioEntity = elsieDeeAudioRipFeignClient.extractAudio(videoFile);
     final Subtitles subtitles = new Subtitles(speechToTextService.processSpeech(audioEntity.getBody()));
 
     final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetTitle, subtitles);
