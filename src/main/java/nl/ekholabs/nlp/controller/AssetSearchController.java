@@ -4,7 +4,7 @@ import java.util.List;
 
 import nl.ekholabs.nlp.client.ElsieDeeSearchAssetsFeignClient;
 import nl.ekholabs.nlp.model.Asset;
-import nl.ekholabs.nlp.model.AssetKeyword;
+import nl.ekholabs.nlp.model.AssetDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class AssetSearchController {
   }
 
   @PostMapping(value = "/assets", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
-  public List<Asset> assets(final @RequestBody AssetKeyword assetKeyword) {
-    LOGGER.info("AssetKeyword received: {}", assetKeyword);
-    return elsieDeeSearchAssetsFeignClient.assets(assetKeyword);
+  public List<Asset> assets(final @RequestBody AssetDetails assetDetails) {
+    LOGGER.info("AssetDetails received: {}", assetDetails);
+    return elsieDeeSearchAssetsFeignClient.assets(assetDetails);
   }
 }

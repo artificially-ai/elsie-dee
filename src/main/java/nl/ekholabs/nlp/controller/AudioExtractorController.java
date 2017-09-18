@@ -13,17 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
-public class AudioRipController {
+public class AudioExtractorController {
 
   private final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient;
 
   @Autowired
-  public AudioRipController(final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient) {
+  public AudioExtractorController(final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient) {
     this.elsieDeeAudioRipFeignClient = elsieDeeAudioRipFeignClient;
   }
 
-  @PostMapping(path = "/ripAudio", consumes = MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<byte[]> ripAudio(final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
+  @PostMapping(path = "/extractAudio", consumes = MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<byte[]> extractAudio(final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
     return elsieDeeAudioRipFeignClient.process(videoFile);
   }
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.*;
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
-public class AssetKeyword {
+public class AssetDetails {
 
   private String id;
 
@@ -15,10 +15,10 @@ public class AssetKeyword {
 
   public List<Keyword> keywords;
 
-  AssetKeyword() {
+  AssetDetails() {
   }
 
-  public AssetKeyword(final String assetTitle, final List<Keyword> keywords) {
+  public AssetDetails(final String assetTitle, final List<Keyword> keywords) {
     this.assetTitle = assetTitle;
     this.keywords = keywords;
   }
@@ -32,7 +32,7 @@ public class AssetKeyword {
       return false;
     }
 
-    final AssetKeyword that = (AssetKeyword) o;
+    final AssetDetails that = (AssetDetails) o;
 
     if (id != null ? !id.equals(that.id) : that.id != null) {
       return false;
@@ -53,7 +53,7 @@ public class AssetKeyword {
 
   @Override
   public String toString() {
-    return "AssetKeyword{" +
+    return "AssetDetails{" +
         "id='" + id + '\'' +
         ", assetTitle='" + assetTitle + '\'' +
         ", keywords=" + keywords +

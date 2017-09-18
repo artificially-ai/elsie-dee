@@ -8,7 +8,7 @@ import nl.ekholabs.nlp.client.ElsieDeeAudioRipFeignClient;
 import nl.ekholabs.nlp.client.ElsieDeeCreateAssetFeignClient;
 import nl.ekholabs.nlp.client.ElsieDeeSearchAssetsFeignClient;
 import nl.ekholabs.nlp.model.Asset;
-import nl.ekholabs.nlp.model.AssetKeyword;
+import nl.ekholabs.nlp.model.AssetDetails;
 import nl.ekholabs.nlp.model.Subtitles;
 import nl.ekholabs.nlp.service.SpeechToTextService;
 import org.slf4j.Logger;
@@ -56,9 +56,9 @@ public class ChainReactionController {
     final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetTitle, subtitles);
     LOGGER.info("Asset created: {}", asset);
 
-    final AssetKeyword assetKeyword = new ObjectMapper().readValue(assetKeywordText, AssetKeyword.class);
-    LOGGER.info("AssetKeyword created: {}", assetKeyword);
+    final AssetDetails assetDetails = new ObjectMapper().readValue(assetKeywordText, AssetDetails.class);
+    LOGGER.info("AssetDetails created: {}", assetDetails);
 
-    return elsieDeeSearchAssetsFeignClient.assets(assetKeyword);
+    return elsieDeeSearchAssetsFeignClient.assets(assetDetails);
   }
 }

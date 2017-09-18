@@ -4,7 +4,7 @@ import java.util.List;
 
 import nl.ekholabs.nlp.client.configuration.JsonSupportConfig;
 import nl.ekholabs.nlp.model.Asset;
-import nl.ekholabs.nlp.model.AssetKeyword;
+import nl.ekholabs.nlp.model.AssetDetails;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +21,6 @@ public interface ElsieDeeSearchAssetsFeignClient {
       consumes = APPLICATION_JSON_UTF8_VALUE,
       produces = APPLICATION_JSON_UTF8_VALUE
   )
-  List<Asset> assets(final @RequestBody AssetKeyword assetKeyword);
+  List<Asset> assets(final @RequestBody AssetDetails assetDetails);
 
 }
