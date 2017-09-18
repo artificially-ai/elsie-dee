@@ -14,9 +14,9 @@ import static org.springframework.http.MediaType.APPLICATION_OCTET_STREAM_VALUE;
 public interface ElsieDeeSightFeignClient {
 
   @RequestMapping(
-      value = "/elsie-deesight/processImage",
+      value = "/elsie-deesight/classifyImage",
       method = RequestMethod.POST,
       produces = APPLICATION_OCTET_STREAM_VALUE
   )
-  ResponseEntity<byte[]> process(final @RequestPart MultipartFile image);
+  ResponseEntity<byte[]> classifyImage(final @RequestPart MultipartFile image);
 }

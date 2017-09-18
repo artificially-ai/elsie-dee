@@ -51,7 +51,7 @@ public class FaceClassifierControllerTest {
 
     MultiValueMap<String, String> headers = new HttpHeaders();
 
-    when(elsieDeeSight.process(multipartFile)).thenReturn(new ResponseEntity<>(expected, headers, HttpStatus.OK));
+    when(elsieDeeSight.classifyImage(multipartFile)).thenReturn(new ResponseEntity<>(expected, headers, HttpStatus.OK));
 
     mvc.perform(fileUpload("/processImage").file(multipartFile))
         .andExpect(status().isOk())
