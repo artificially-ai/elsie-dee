@@ -38,6 +38,6 @@ public class SpeechToTextController {
 
   @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = TEXT_PLAIN_VALUE)
   public Language idLanguage(final @RequestBody String text) throws IOException {
-    return elsieDeetect.identify(text);
+    return elsieDeetect.idLanguage(text);
   }
 }

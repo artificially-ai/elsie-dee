@@ -57,7 +57,7 @@ public class SpeechToTextControllerTest {
     final MockMultipartFile multipartFile =
         new MockMultipartFile("audio", "man2_orig.wav", "audio/wav", allBytes);
 
-    when(elsieDeetect.identify("<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
+    when(elsieDeetect.idLanguage("<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
         + "passengers who buy that toll it seemed principally bonds to the mentions a bit ")).thenReturn(new Language("en"));
 
     final String contentAsString = mvc.perform(fileUpload("/speechToText").file(multipartFile))
@@ -80,7 +80,7 @@ public class SpeechToTextControllerTest {
         .contentType(TEXT_PLAIN_VALUE)
         .content(content);
 
-    when(elsieDeetect.identify(content)).thenReturn(new Language("en"));
+    when(elsieDeetect.idLanguage(content)).thenReturn(new Language("en"));
 
     final String contentAsString = mvc.perform(request)
         .andExpect(status().isOk())

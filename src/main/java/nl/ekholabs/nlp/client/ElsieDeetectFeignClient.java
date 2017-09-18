@@ -12,9 +12,9 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 @FeignClient(serviceId = "elsie-deetect", configuration = TextSupportConfig.class)
 public interface ElsieDeetectFeignClient {
 
-  @PostMapping(path = "/elsie-deetect/identify",
+  @PostMapping(path = "/elsie-deetect/idLanguage",
       consumes = TEXT_PLAIN_VALUE,
       produces = APPLICATION_JSON_UTF8_VALUE)
-  Language identify(@RequestBody final String text);
+  Language idLanguage(@RequestBody final String text);
 
 }
