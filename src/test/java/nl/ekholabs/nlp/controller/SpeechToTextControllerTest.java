@@ -60,7 +60,7 @@ public class SpeechToTextControllerTest {
     when(elsieDeetect.identify("<sil> the catch was crowded <sil> goes inside and out [NOISE] <sil> with "
         + "passengers who buy that toll it seemed principally bonds to the mentions a bit ")).thenReturn(new Language("en"));
 
-    final String contentAsString = mvc.perform(fileUpload("/processAudio").file(multipartFile))
+    final String contentAsString = mvc.perform(fileUpload("/speechToText").file(multipartFile))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
@@ -76,7 +76,7 @@ public class SpeechToTextControllerTest {
     final String content = "If you just want the body of the xhtml document, without the header, you can chain together a "
         + "BodyContentHandler and a ToXMLContentHandler as shown:";
 
-    final RequestBuilder request = post("/identify")
+    final RequestBuilder request = post("/idLanguage")
         .contentType(TEXT_PLAIN_VALUE)
         .content(content);
 

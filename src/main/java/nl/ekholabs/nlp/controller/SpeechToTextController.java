@@ -29,15 +29,15 @@ public class SpeechToTextController {
     this.elsieDeetect = elsieDeetect;
   }
 
-  @PostMapping(path = "/processAudio", produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-  public TextResponse processAudio(final @RequestParam(value = "audio") MultipartFile audioFile) throws IOException {
+  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
+  public TextResponse speechToText(final @RequestParam(value = "audio") MultipartFile audioFile) throws IOException {
 
     final String outputText = speechToTextService.processSpeech(audioFile.getBytes());
     return new TextResponse(outputText);
   }
 
   @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = TEXT_PLAIN_VALUE)
-  public Language identify(final @RequestBody String text) throws IOException {
+  public Language idLanguage(final @RequestBody String text) throws IOException {
     return elsieDeetect.identify(text);
   }
 }
