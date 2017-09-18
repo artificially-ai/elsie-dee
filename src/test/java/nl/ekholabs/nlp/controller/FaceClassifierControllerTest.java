@@ -53,7 +53,7 @@ public class FaceClassifierControllerTest {
 
     when(elsieDeeSight.classifyImage(multipartFile)).thenReturn(new ResponseEntity<>(expected, headers, HttpStatus.OK));
 
-    mvc.perform(fileUpload("/processImage").file(multipartFile))
+    mvc.perform(fileUpload("/classifyImage").file(multipartFile))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsByteArray();
   }
