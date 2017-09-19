@@ -36,7 +36,7 @@ public class SpeechToTextController {
     return new TextResponse(outputText);
   }
 
-  @PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = TEXT_PLAIN_VALUE)
+  @PostMapping(path = "/idLanguage", produces = APPLICATION_JSON_UTF8_VALUE, consumes = TEXT_PLAIN_VALUE)
   public Language idLanguage(final @RequestBody String text) throws IOException {
     return elsieDeetect.idLanguage(text);
   }

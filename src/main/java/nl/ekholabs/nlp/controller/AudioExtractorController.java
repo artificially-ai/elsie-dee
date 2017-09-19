@@ -22,7 +22,7 @@ public class AudioExtractorController {
     this.elsieDeeAudioRipFeignClient = elsieDeeAudioRipFeignClient;
   }
 
-  @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(path = "/extractAudio", consumes = MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<byte[]> extractAudio(final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
     return elsieDeeAudioRipFeignClient.extractAudio(videoFile);
   }
