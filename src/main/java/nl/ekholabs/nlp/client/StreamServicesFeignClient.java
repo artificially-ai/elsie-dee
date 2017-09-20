@@ -12,7 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 @FeignClient(serviceId = "stream-services", configuration = JsonSupportConfig.class)
 public interface StreamServicesFeignClient {
 
-  @PostMapping(path = "/ffmpeg",
+  @PostMapping(path = "/ffmpeg/streamDetails",
       consumes = APPLICATION_JSON_UTF8_VALUE,
       produces = APPLICATION_JSON_UTF8_VALUE)
   Streams streamDetails(@RequestBody final VideoUrl videoUrl);
