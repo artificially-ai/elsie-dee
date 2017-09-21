@@ -46,7 +46,7 @@ public class AssetDetectionController {
   @PostMapping(path = "/identifyAsset", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
   public List<Asset> identifyAsset(final @RequestBody AssetSearchRequest assetSearchRequest) throws IOException {
 
-    final VideoUrl videoUrl = assetSearchRequest.getUrl();
+    final VideoUrl videoUrl = assetSearchRequest.getVideoUrl();
     final Streams streams = streamServicesFeignClient.streamDetails(videoUrl);
 
     final List<StreamDetails> streamsByLanguage = streams.getStreams().stream()

@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class AssetSearchRequest {
 
-  private VideoUrl url;
+  private VideoUrl videoUrl;
   private Language language;
   private AssetDetails assetDetails;
 
   AssetSearchRequest() {
   }
 
-  public AssetSearchRequest(final VideoUrl url, final Language language, final AssetDetails assetDetails) {
-    this.url = url;
+  public AssetSearchRequest(final VideoUrl videoUrl, final Language language, final AssetDetails assetDetails) {
+    this.videoUrl = videoUrl;
     this.language = language;
     this.assetDetails = assetDetails;
   }
 
-  public VideoUrl getUrl() {
-    return url;
+  public VideoUrl getVideoUrl() {
+    return videoUrl;
   }
 
   public Language getLanguage() {
@@ -42,7 +42,7 @@ public class AssetSearchRequest {
 
     final AssetSearchRequest that = (AssetSearchRequest) o;
 
-    if (url != null ? !url.equals(that.url) : that.url != null) {
+    if (videoUrl != null ? !videoUrl.equals(that.videoUrl) : that.videoUrl != null) {
       return false;
     }
     if (language != null ? !language.equals(that.language) : that.language != null) {
@@ -53,7 +53,7 @@ public class AssetSearchRequest {
 
   @Override
   public int hashCode() {
-    int result = url != null ? url.hashCode() : 0;
+    int result = videoUrl != null ? videoUrl.hashCode() : 0;
     result = 31 * result + (language != null ? language.hashCode() : 0);
     result = 31 * result + (assetDetails != null ? assetDetails.hashCode() : 0);
     return result;
@@ -62,7 +62,7 @@ public class AssetSearchRequest {
   @Override
   public String toString() {
     return "AssetSearchRequest{" +
-        "url=" + url +
+        "videoUrl=" + videoUrl +
         ", language=" + language +
         ", assetDetails=" + assetDetails +
         '}';
