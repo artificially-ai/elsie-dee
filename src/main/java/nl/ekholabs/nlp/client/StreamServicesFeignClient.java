@@ -1,6 +1,6 @@
 package nl.ekholabs.nlp.client;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import nl.ekholabs.nlp.client.configuration.JsonSupportConfig;
 import nl.ekholabs.nlp.model.StreamDetails;
@@ -24,5 +24,5 @@ public interface StreamServicesFeignClient {
   @PostMapping(path = "/ffmpeg/extractSubtitles",
       consumes = APPLICATION_JSON_UTF8_VALUE,
       produces = APPLICATION_JSON_UTF8_VALUE)
-  Subtitles extractSubtitles(@RequestBody final Stream<StreamDetails> streamDetails);
+  Subtitles extractSubtitles(@RequestBody final List<StreamDetails> streamsByLanguage);
 }

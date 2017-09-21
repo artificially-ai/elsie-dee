@@ -2,7 +2,6 @@ package nl.ekholabs.nlp.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Stream;
 
 import nl.ekholabs.nlp.client.ElsieDeeCreateAssetFeignClient;
 import nl.ekholabs.nlp.client.ElsieDeeSearchAssetsFeignClient;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -46,12 +46,12 @@ public class AssetDetectionController {
 
     final Streams streams = streamServicesFeignClient.streamDetails(assetSearchRequest.getUrl());
 
-    final Stream<StreamDetails> streamsByLanguage = streams.getStreams().stream()
+    final List<StreamDetails> streamsByLanguage = streams.getStreams().stream()
         .filter(streamDetails -> {
           final Language searchedLanguage = assetSearchRequest.getLanguage();
           final String foundLanguage = streamDetails.getLanguage();
           return foundLanguage.equalsIgnoreCase(searchedLanguage.getCode());
-        });
+        }).collect(toList());
 
     final Subtitles subtitles = streamServicesFeignClient.extractSubtitles(streamsByLanguage);
 
