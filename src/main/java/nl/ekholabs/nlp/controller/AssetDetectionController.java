@@ -24,9 +24,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
-public class ChainReactionController {
+public class AssetDetectionController {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(ChainReactionController.class);
+  private final static Logger LOGGER = LoggerFactory.getLogger(AssetDetectionController.class);
 
   private final SpeechToTextService speechToTextService;
   private final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient;
@@ -34,10 +34,10 @@ public class ChainReactionController {
   private final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient;
 
   @Autowired
-  public ChainReactionController(final SpeechToTextService speechToTextService,
-                                 final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient,
-                                 final ElsieDeeCreateAssetFeignClient elsieDeeCreateAssetFeignClient,
-                                 final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient) {
+  public AssetDetectionController(final SpeechToTextService speechToTextService,
+                                  final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient,
+                                  final ElsieDeeCreateAssetFeignClient elsieDeeCreateAssetFeignClient,
+                                  final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient) {
     this.speechToTextService = speechToTextService;
     this.elsieDeeAudioRipFeignClient = elsieDeeAudioRipFeignClient;
     this.elsieDeeCreateAssetFeignClient = elsieDeeCreateAssetFeignClient;
