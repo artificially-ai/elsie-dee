@@ -3,7 +3,6 @@ package nl.ekholabs.nlp.client;
 import nl.ekholabs.nlp.client.configuration.JsonSupportConfig;
 import nl.ekholabs.nlp.model.ExtractSubtitlesRequest;
 import nl.ekholabs.nlp.model.Streams;
-import nl.ekholabs.nlp.model.Subtitles;
 import nl.ekholabs.nlp.model.VideoUrl;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,5 +21,5 @@ public interface StreamServicesFeignClient {
   @PostMapping(path = "/ffmpeg/extractSubtitles",
       consumes = APPLICATION_JSON_UTF8_VALUE,
       produces = APPLICATION_JSON_UTF8_VALUE)
-  Subtitles extractSubtitles(@RequestBody final ExtractSubtitlesRequest subtitlesRequest);
+  String extractSubtitles(@RequestBody final ExtractSubtitlesRequest subtitlesRequest);
 }

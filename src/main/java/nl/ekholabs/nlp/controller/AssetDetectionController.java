@@ -45,22 +45,29 @@ public class AssetDetectionController {
 
   @PostMapping(path = "/identifyAsset", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
   public List<Asset> identifyAsset(final @RequestBody AssetSearchRequest assetSearchRequest) throws IOException {
+    LOGGER.info("AssetSearchRequest received: {}", assetSearchRequest);
 
     final VideoUrl videoUrl = assetSearchRequest.getVideoUrl();
     final Streams streams = streamServicesFeignClient.streamDetails(videoUrl);
+    LOGGER.info("Streams received: {}", streams);
 
     final List<StreamDetails> streamsByLanguage = streams.getStreams().stream()
         .filter(streamDetails -> {
           final Language searchedLanguage = assetSearchRequest.getLanguage();
           final String foundLanguage = streamDetails.getLanguage();
-          return foundLanguage.equalsIgnoreCase(searchedLanguage.getCode());
+
+          final boolean isSubtitle = streamDetails.getType().equalsIgnoreCase("Subtitle");
+          final boolean isLanguage = foundLanguage.equalsIgnoreCase(searchedLanguage.getCode());
+          return isSubtitle && isLanguage;
         }).collect(toList());
 
+    LOGGER.info("streamsByLanguage received: {}", streamsByLanguage);
+
     final ExtractSubtitlesRequest subtitlesRequest = new ExtractSubtitlesRequest(videoUrl, streamsByLanguage);
-    final Subtitles subtitles = streamServicesFeignClient.extractSubtitles(subtitlesRequest);
+    final String subtitles = streamServicesFeignClient.extractSubtitles(subtitlesRequest);
 
     final AssetDetails assetDetails = assetSearchRequest.getAssetDetails();
-    final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetDetails.getAssetTitle(), subtitles);
+    final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetDetails.getAssetTitle(), new Subtitles(subtitles));
     LOGGER.info("Asset created: {}", asset);
 
     return elsieDeeSearchAssetsFeignClient.assets(assetDetails);
