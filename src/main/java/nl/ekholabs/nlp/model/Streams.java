@@ -17,6 +17,10 @@ public class Streams {
     this.streams = streams;
   }
 
+  public List<StreamDetails> getStreams() {
+    return streams;
+  }
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) {

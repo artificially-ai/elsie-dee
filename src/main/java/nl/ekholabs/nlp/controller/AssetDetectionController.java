@@ -2,62 +2,62 @@ package nl.ekholabs.nlp.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.ekholabs.nlp.client.ElsieDeeAudioRipFeignClient;
 import nl.ekholabs.nlp.client.ElsieDeeCreateAssetFeignClient;
 import nl.ekholabs.nlp.client.ElsieDeeSearchAssetsFeignClient;
+import nl.ekholabs.nlp.client.StreamServicesFeignClient;
 import nl.ekholabs.nlp.model.Asset;
 import nl.ekholabs.nlp.model.AssetDetails;
+import nl.ekholabs.nlp.model.AssetSearchRequest;
+import nl.ekholabs.nlp.model.Language;
+import nl.ekholabs.nlp.model.StreamDetails;
+import nl.ekholabs.nlp.model.Streams;
 import nl.ekholabs.nlp.model.Subtitles;
-import nl.ekholabs.nlp.service.SpeechToTextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 public class AssetDetectionController {
 
   private final static Logger LOGGER = LoggerFactory.getLogger(AssetDetectionController.class);
 
-  private final SpeechToTextService speechToTextService;
-  private final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient;
+  private final StreamServicesFeignClient streamServicesFeignClient;
   private final ElsieDeeCreateAssetFeignClient elsieDeeCreateAssetFeignClient;
   private final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient;
 
   @Autowired
-  public AssetDetectionController(final SpeechToTextService speechToTextService,
-                                  final ElsieDeeAudioRipFeignClient elsieDeeAudioRipFeignClient,
+  public AssetDetectionController(final StreamServicesFeignClient streamServicesFeignClient,
                                   final ElsieDeeCreateAssetFeignClient elsieDeeCreateAssetFeignClient,
                                   final ElsieDeeSearchAssetsFeignClient elsieDeeSearchAssetsFeignClient) {
-    this.speechToTextService = speechToTextService;
-    this.elsieDeeAudioRipFeignClient = elsieDeeAudioRipFeignClient;
+    this.streamServicesFeignClient = streamServicesFeignClient;
     this.elsieDeeCreateAssetFeignClient = elsieDeeCreateAssetFeignClient;
     this.elsieDeeSearchAssetsFeignClient = elsieDeeSearchAssetsFeignClient;
   }
 
-  @PostMapping(path = "/processVideo", produces = APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-  public List<Asset> processVideo(final @RequestParam(value = "title") String assetTitle,
-                           final @RequestParam(value = "keywords") String assetKeywordText,
-                           final @RequestParam(value = "video") MultipartFile videoFile) throws IOException {
+  @PostMapping(path = "/identifyAsset", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+  public List<Asset> identifyAsset(final @RequestBody AssetSearchRequest assetSearchRequest) throws IOException {
 
-    //TODO replace with chain of responsibility design pattern.
-    final ResponseEntity<byte[]> audioEntity = elsieDeeAudioRipFeignClient.extractAudio(videoFile);
-    final Subtitles subtitles = new Subtitles(speechToTextService.processSpeech(audioEntity.getBody()));
+    final Streams streams = streamServicesFeignClient.streamDetails(assetSearchRequest.getUrl());
 
-    final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetTitle, subtitles);
+    final Stream<StreamDetails> streamsByLanguage = streams.getStreams().stream()
+        .filter(streamDetails -> {
+          final Language searchedLanguage = assetSearchRequest.getLanguage();
+          final String foundLanguage = streamDetails.getLanguage();
+          return foundLanguage.equalsIgnoreCase(searchedLanguage.getCode());
+        });
+
+    final Subtitles subtitles = streamServicesFeignClient.extractSubtitles(streamsByLanguage);
+
+    final AssetDetails assetDetails = assetSearchRequest.getAssetDetails();
+    final Asset asset = elsieDeeCreateAssetFeignClient.createAsset(assetDetails.getAssetTitle(), subtitles);
     LOGGER.info("Asset created: {}", asset);
-
-    final AssetDetails assetDetails = new ObjectMapper().readValue(assetKeywordText, AssetDetails.class);
-    LOGGER.info("AssetDetails created: {}", assetDetails);
 
     return elsieDeeSearchAssetsFeignClient.assets(assetDetails);
   }

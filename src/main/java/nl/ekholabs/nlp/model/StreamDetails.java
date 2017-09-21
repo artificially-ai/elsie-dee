@@ -19,6 +19,18 @@ public class StreamDetails {
     this.type = type;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public String getType() {
+    return type;
+  }
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) {

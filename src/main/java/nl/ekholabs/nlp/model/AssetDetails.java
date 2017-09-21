@@ -23,6 +23,14 @@ public class AssetDetails {
     this.keywords = keywords;
   }
 
+  public String getAssetTitle() {
+    return assetTitle;
+  }
+
+  public List<Keyword> getKeywords() {
+    return keywords;
+  }
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
