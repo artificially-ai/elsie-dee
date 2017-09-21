@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class ExtractSubtitlesRequest {
 
-  private VideoUrl url;
+  private VideoUrl videoUrl;
   private List<StreamDetails> streamDetails;
 
   ExtractSubtitlesRequest() {
   }
 
-  public ExtractSubtitlesRequest(final VideoUrl url, final List<StreamDetails> streamDetails) {
-    this.url = url;
+  public ExtractSubtitlesRequest(final VideoUrl videoUrl, final List<StreamDetails> streamDetails) {
+    this.videoUrl = videoUrl;
     this.streamDetails = streamDetails;
   }
 
@@ -30,7 +30,7 @@ public class ExtractSubtitlesRequest {
 
     final ExtractSubtitlesRequest that = (ExtractSubtitlesRequest) o;
 
-    if (url != null ? !url.equals(that.url) : that.url != null) {
+    if (videoUrl != null ? !videoUrl.equals(that.videoUrl) : that.videoUrl != null) {
       return false;
     }
     return streamDetails != null ? streamDetails.equals(that.streamDetails) : that.streamDetails == null;
@@ -38,7 +38,7 @@ public class ExtractSubtitlesRequest {
 
   @Override
   public int hashCode() {
-    int result = url != null ? url.hashCode() : 0;
+    int result = videoUrl != null ? videoUrl.hashCode() : 0;
     result = 31 * result + (streamDetails != null ? streamDetails.hashCode() : 0);
     return result;
   }
@@ -46,7 +46,7 @@ public class ExtractSubtitlesRequest {
   @Override
   public String toString() {
     return "ExtractSubtitlesRequest{" +
-        "url=" + url +
+        "videoUrl=" + videoUrl +
         ", streamDetails=" + streamDetails +
         '}';
   }
