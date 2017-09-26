@@ -13,22 +13,18 @@ public class AssetDetails {
 
   private String assetTitle;
 
-  public List<Keyword> keywords;
+  public List<String> keywords;
 
   AssetDetails() {
   }
 
-  public AssetDetails(final String assetTitle, final List<Keyword> keywords) {
+  public AssetDetails(final String assetTitle, final List<String> keywords) {
     this.assetTitle = assetTitle;
     this.keywords = keywords;
   }
 
   public String getAssetTitle() {
     return assetTitle;
-  }
-
-  public List<Keyword> getKeywords() {
-    return keywords;
   }
 
   @Override
